@@ -1,4 +1,11 @@
+const form = document.querySelector("form")
 const ipt_amount = document.querySelector("#amount")
+const expense = document.querySelector("#expense")
+const category = document.querySelector("#category")
+
+form.onsubmit = (e) => {
+  e.preventDefault()
+}
 
 // Captura o evento de input para formatar o valor.
 ipt_amount.oninput = () => {
