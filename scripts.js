@@ -1,11 +1,14 @@
+// Seleciona os elementos do formulário
 const form = document.querySelector("form")
 const ipt_amount = document.querySelector("#amount")
 const expense = document.querySelector("#expense")
 const category = document.querySelector("#category")
-const expensesQuantity = document.querySelector("aside header p span")
+
 
 // Seleciona os elementos da lista
 const expenseList = document.querySelector("ul")
+const expensesQuantity = document.querySelector("aside header p span")
+const expensesTotal = document.querySelector("aside header h2")
 
 
 // Captura o evento de submit do formulário para obter os valores
@@ -119,11 +122,25 @@ function updateTotals() {
     let total = 0
 
     // Percorre cada item (li) da lista (ul)
-    for (i = 0; i < items; i++) {
+    for (let i = 0; i < items.length; i++) {
       const itemAmount = items[i].querySelector(".expense-amount")
 
-      console.log(itemAmount)
+      // Remove caracteres não numéricos e substitui a virgula por ponto
+      let value = itemAmount.textContent.replace(/[^\d]/g, "").replace(",", ".")
+      
+      // Converte o valor para float
+      value = parseFloat(value)
+
+      // Verifica se é um número válido
+      if(isNaN(value)){
+        return alert("Não foi possível calcular o total. O valor não parece ser um número...")
+      }
+
+      // Incrementar o valor total
+      total += Number(value)
     }
+
+    expensesTotal.textContent = total
 
   } catch (error) {
     alert("Não foi possível atualizar os totais")
