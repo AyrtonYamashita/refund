@@ -17,6 +17,9 @@ form.onsubmit = (e) => {
     amount: ipt_amount.value,
     created_at: new Date(),
   }
+
+  // Chama a função de irá adicionar o item na lista
+  expenseAdd(newExpense)
 }
 
 // Captura o evento de input para formatar o valor.
@@ -30,7 +33,8 @@ ipt_amount.oninput = () => {
   // Atualiza o valor do input sem caracteres não numéricos.
   ipt_amount.value = formatCurrentBRL(value)
 }
-function formatCurrentBRL(value){
+
+function formatCurrentBRL(value) {
 
   // Formata o valor no padrão BRL REAL BRASILEIRO
   value = value.toLocaleString("pt-BR", {
@@ -40,4 +44,12 @@ function formatCurrentBRL(value){
 
   // Retorna o valor formatado
   return value
+}
+
+function expenseAdd(newExpense) {
+  try {
+  } catch (error) {
+    alert("Não foi possível atualizar a lista de despesas")
+    console.log(error)
+  }
 }
