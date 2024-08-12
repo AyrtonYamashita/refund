@@ -2,6 +2,7 @@ const form = document.querySelector("form")
 const ipt_amount = document.querySelector("#amount")
 const expense = document.querySelector("#expense")
 const category = document.querySelector("#category")
+const expensesQuantity = document.querySelector("aside header p span")
 
 // Seleciona os elementos da lista
 const expenseList = document.querySelector("ul")
@@ -36,20 +37,22 @@ ipt_amount.oninput = () => {
 
   // Atualiza o valor do input sem caracteres não numéricos.
   ipt_amount.value = formatCurrentBRL(value)
+  // Formata o valor da despesa para o padrão real brasileiro
+  function formatCurrentBRL(value) {
+
+    // Formata o valor no padrão BRL REAL BRASILEIRO
+    value = value.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    })
+
+    // Retorna o valor formatado
+    return value
+  }
+
 }
 
-function formatCurrentBRL(value) {
-
-  // Formata o valor no padrão BRL REAL BRASILEIRO
-  value = value.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  })
-
-  // Retorna o valor formatado
-  return value
-}
-
+// Adiciona um novo item na lista
 function expenseAdd(newExpense) {
   try {
     // Cria o elemento para adicionar o item (li) na lista (ul)
@@ -81,7 +84,7 @@ function expenseAdd(newExpense) {
     expenseAmount.classList.add("expense-amount")
     expenseAmount.innerHTML = `<small>R$</small> ${newExpense.amount.toUpperCase().replace("R$", "")}`
 
-    // Adiciona o botão de apagar
+    // Cria o ícone de remover
     const expenseDelete = document.createElement("img")
     expenseDelete.classList.add("remove-icon")
     expenseDelete.setAttribute("src", "./img/remove.svg")
@@ -93,8 +96,24 @@ function expenseAdd(newExpense) {
     // Adiciona o item na lista
     expenseList.append(expenseItem)
 
+    // Atualiza os totais
+    updateTotals()
+
   } catch (error) {
     alert("Não foi possível atualizar a lista de despesas")
+    console.log(error)
+  }
+}
+
+// Atualiza os totais
+function updateTotals(){
+  try {
+    // Recupera todos os itens (li) da lista (ul)
+    const items = expenseList.children.length
+    expensesQuantity.textContent = `${items} ${items > 1 ? "despesas": "despesa"}`
+
+  } catch (error) {
+    alert("Não foi possível atualizar os totais")
     console.log(error)
   }
 }
