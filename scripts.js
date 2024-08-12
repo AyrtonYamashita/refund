@@ -41,18 +41,21 @@ ipt_amount.oninput = () => {
   // Atualiza o valor do input sem caracteres não numéricos.
   ipt_amount.value = formatCurrentBRL(value)
   // Formata o valor da despesa para o padrão real brasileiro
-  function formatCurrentBRL(value) {
 
-    // Formata o valor no padrão BRL REAL BRASILEIRO
-    value = value.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    })
 
-    // Retorna o valor formatado
-    return value
-  }
+}
 
+// Formata o valor para a moeda brasileira
+function formatCurrentBRL(value) {
+
+  // Formata o valor no padrão BRL REAL BRASILEIRO
+  value = value.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  })
+
+  // Retorna o valor formatado
+  return value
 }
 
 // Adiciona um novo item na lista
@@ -126,7 +129,7 @@ function updateTotals() {
       const itemAmount = items[i].querySelector(".expense-amount")
 
       // Remove caracteres não numéricos e substitui a virgula por ponto
-      let value = itemAmount.textContent.replace(/[^\d]/g, "").replace(",", ".")
+      let value = itemAmount.textContent.replace(/[^\d,]/g, "").replace(",", ".")
       
       // Converte o valor para float
       value = parseFloat(value)
@@ -140,8 +143,18 @@ function updateTotals() {
       total += Number(value)
     }
 
-    expensesTotal.textContent = total
+    // Cria a span para adicioanr o R$ formatado
+    const symbolBRL = document.createElement("small")
+    symbolBRL.textContent = "R$"
 
+    // Formata o valor e remove o R$ que será exibido pela small com um estilo customizado.
+    total = formatCurrentBRL(total).toUpperCase().replace("R$", "")
+
+    // Limpa o conteúdo do elemento
+    expensesTotal.innerHTML = ""
+
+    // Adiciona o simbolo da moeda e o valor total formatado
+    expensesTotal.append(symbolBRL, total)
   } catch (error) {
     alert("Não foi possível atualizar os totais")
     console.log(error)
