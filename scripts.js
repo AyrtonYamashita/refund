@@ -3,6 +3,10 @@ const ipt_amount = document.querySelector("#amount")
 const expense = document.querySelector("#expense")
 const category = document.querySelector("#category")
 
+// Seleciona os elementos da lista
+const expenseList = document.querySelector("ul")
+
+
 // Captura o evento de submit do formulário para obter os valores
 form.onsubmit = (e) => {
   // Previne o comportamento padrão de fazer reload na página
@@ -48,6 +52,19 @@ function formatCurrentBRL(value) {
 
 function expenseAdd(newExpense) {
   try {
+    // Cria o elemento para adicionar o item (li) na lista (ul)
+    const expenseItem = document.createElement("li")
+    expenseItem.classList.add("expense")
+
+    // Cria o ícone da categoria
+    const expenseIcon = document.createElement("img")
+    expenseIcon.setAttribute("src", `img/${newExpense.category_id}.svg`)
+    expenseIcon.setAttribute("alt", newExpense.category_name)
+
+    // Adiciona as informações no item
+    expenseItem.append(expenseIcon)
+    expenseList.append(expenseItem)
+
   } catch (error) {
     alert("Não foi possível atualizar a lista de despesas")
     console.log(error)
