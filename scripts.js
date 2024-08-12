@@ -106,11 +106,24 @@ function expenseAdd(newExpense) {
 }
 
 // Atualiza os totais
-function updateTotals(){
+function updateTotals() {
   try {
     // Recupera todos os itens (li) da lista (ul)
-    const items = expenseList.children.length
-    expensesQuantity.textContent = `${items} ${items > 1 ? "despesas": "despesa"}`
+    const items = expenseList.children
+
+    // Atualiza a quantidade de itens da lista
+    expensesQuantity.textContent = `${items.length} ${items.length > 1 ? "despesas" : "despesa"}`
+
+
+    // Variável para incrementar o total.
+    let total = 0
+
+    // Percorre cada item (li) da lista (ul)
+    for (i = 0; i < items; i++) {
+      const itemAmount = items[i].querySelector(".expense-amount")
+
+      console.log(itemAmount)
+    }
 
   } catch (error) {
     alert("Não foi possível atualizar os totais")
