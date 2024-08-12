@@ -3,8 +3,20 @@ const ipt_amount = document.querySelector("#amount")
 const expense = document.querySelector("#expense")
 const category = document.querySelector("#category")
 
+// Captura o evento de submit do formulário para obter os valores
 form.onsubmit = (e) => {
+  // Previne o comportamento padrão de fazer reload na página
   e.preventDefault()
+
+  // Cria um objeto com os valores nos campos do formulário
+  const newExpense = {
+    id: new Date().getTime(),
+    expense: expense.value,
+    category_id: category.value,
+    category_name: category.options[category.selectedIndex].text,
+    amount: ipt_amount.value,
+    created_at: new Date(),
+  }
 }
 
 // Captura o evento de input para formatar o valor.
@@ -18,7 +30,6 @@ ipt_amount.oninput = () => {
   // Atualiza o valor do input sem caracteres não numéricos.
   ipt_amount.value = formatCurrentBRL(value)
 }
-
 function formatCurrentBRL(value){
 
   // Formata o valor no padrão BRL REAL BRASILEIRO
