@@ -102,6 +102,8 @@ function expenseAdd(newExpense) {
     // Adiciona o item na lista
     expenseList.append(expenseItem)
 
+    formClear()
+
     // Atualiza os totais
     updateTotals()
 
@@ -159,6 +161,17 @@ function updateTotals() {
     alert("Não foi possível atualizar os totais")
     console.log(error)
   }
+}
+
+function formClear() {
+  // Limpa os inputs
+  ipt_amount.value = ""
+  category.value = ""
+  expense.value = ""
+
+  // Coloca o foco no input de nome
+  expense.focus()
+
 }
 
 // Evento que captura o clique nos itens da lista.
