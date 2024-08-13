@@ -130,12 +130,12 @@ function updateTotals() {
 
       // Remove caracteres não numéricos e substitui a virgula por ponto
       let value = itemAmount.textContent.replace(/[^\d,]/g, "").replace(",", ".")
-      
+
       // Converte o valor para float
       value = parseFloat(value)
 
       // Verifica se é um número válido
-      if(isNaN(value)){
+      if (isNaN(value)) {
         return alert("Não foi possível calcular o total. O valor não parece ser um número...")
       }
 
@@ -160,3 +160,12 @@ function updateTotals() {
     console.log(error)
   }
 }
+
+// Evento que captura o clique nos itens da lista.
+expenseList.addEventListener("click", (e) => {
+  // Verificando se o elemento clicado é o ícone de remover
+  if (e.target.classList.contains("remove-icon")) {
+    console.log(e)
+
+  }
+})
